@@ -20,9 +20,7 @@ In this project, you will walk through how to
 
 ## Step 0: Setting up your environment
 
-**Important:** Before proceeding, install Python 3 on your laptop.
-We've created videos showing how to do this on
-[Windows](https://youtu.be/9DdOYx9EEXQ) and [Mac](https://youtu.be/WyEpOztcy5w).  **Todo: installation video link (change to anaconda)**
+**Important:** Before proceeding, install Anaconda on your laptop.
 
 Much of challenge of programming involves setting up your computer
 properly and learning how to use various tools.  This project (worth
