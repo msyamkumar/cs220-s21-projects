@@ -6,7 +6,7 @@ practice running six Python programs we give you, including a game!
 
 <h2> Attend lab hours </h2>
 
-Lab hours will take place on **Lab Hours** session on Canvas->BBCollaborate Ultra. Please see the schedule here: [Lab Hours Schedule](https://piazza.com/class/kjncdcxcnew3nk?cid=7). You may find the link in the navigation bar on our course Canvas site. During these times TAs and peer mentors will be available to answer questions about lab exercises, discuss course content and go over strategies for solving the project questions. Students will not share their code for projects during lab hours use office hours for debugging help or questions about your code. Lab hours are not mandatory.
+Lab hours will take place on **Lab Hours** session on Canvas->BBCollaborate Ultra. You may find the link in the navigation bar on our course Canvas site. During these times TAs and peer mentors will be available to answer questions about lab exercises, discuss course content and go over strategies for solving the project questions. Students will not share their code for projects during lab hours use office hours for debugging help or questions about your code. Lab hours are not mandatory.
 
 ## Learning Objectives
 
