@@ -20,7 +20,10 @@ In this project, you will walk through how to
 
 ## Step 0: Setting up your environment
 
-**Important:** Before proceeding, install Anaconda on your laptop.
+**Important:** Before proceeding, install Anaconda3 on your laptop: [MAC
+OS installation guidance video](https://www.youtube.com/watch?v=BI4J4-3nWhQ) 
+and [Windows OS installation guidance
+video](https://www.youtube.com/watch?v=fUohsnkuiKQ)
 
 Much of challenge of programming involves setting up your computer
 properly and learning how to use various tools.  This project (worth
