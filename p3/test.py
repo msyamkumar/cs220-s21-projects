@@ -1,5 +1,9 @@
 import ast, os, sys, subprocess, json, re, collections, math, warnings
 
+# check the python version
+if sys.version[:5] < '3.7.0':
+    warnings.warn('Your current python version is {}. Please upgrade your python version to at least 3.7.0.'.format(sys.version[:5]))
+
 PASS = "PASS"
 TEXT_FORMAT = "text"
 
