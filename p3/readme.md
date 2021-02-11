@@ -1,8 +1,7 @@
 # Project 3 (p3)
 
 ## Clarifications/Corrections
-
-None yet.
+* 02/10/2021: Q14 note about argument passing has been updated. Please read the updated description below the question.
 
 **Find any issues?** Report to us: 
 
@@ -251,7 +250,7 @@ Use the default arguments (your call to `change_per_year` should only
 pass one argument explicitly). **If you do not use the default arguments and only pass one argument explicitly, you will lose points.**
 
 ### #Q14: how much has spending increased per year (on average) for gyms from 2017 to 2019?
-**As with Q13, if you do not use the default arguments and only pass one argument explicitly, you will lose points.**
+You should only have to pass in the agency name and end year in the call to `change_per_year`. **If you do not use the default argument for the other parameter, you will lose points.**
 
 ### Function 6: `extrapolate(agency, year1, year2, year3)`
 
