@@ -57,8 +57,8 @@ to the `lab3` directory:
 * `madison.csv`
 * `project.py`
 
-Open a terminal and navigate to your `lab3` directory.  Run `ls` to
-make sure your three files are available.
+  Open a terminal and navigate to your `lab3` directory.  Run `ls` to
+  make sure your three files are available. If you found your files are downloaded as `.txt` files (e.g. `madison.txt` instead of `madison.csv`), run `mv madison.txt madison.csv` to change the type of the file into `.csv` file manually. Here `mv` is a shell command to rename or move files.  
 
 We'll be doing these exercises in interactive mode, so type `python`
 (or `python3`, if that's what you need to do on your laptop), and hit
