@@ -16,7 +16,7 @@ In this project, you will walk through how to
 * Practice writing functions
 * practice doing some basic statistical analysis on the dataset
 
-**Please go through [lab-p3](https://github.com/msyamkumar/cs220-s21-projects/blob/master/lab-p4) before working on this project.** The lab introduces some useful techniques related to this project.
+**Please go through [lab-p3](https://github.com/msyamkumar/cs220-s21-projects/blob/master/lab-p3) before working on this project.** The lab introduces some useful techniques related to this project.
 
 ## Description
 
