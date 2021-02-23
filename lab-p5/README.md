@@ -17,7 +17,7 @@ None yet.
 
 The `project.py` file helps give you access to the dataset you'll use
 this week, `hurricanes.csv`.  Start by looking at the dataset
-[here](https://github.com/msyamkumar/cs220-s21-projectDesign/blob/master/p5/hurricanes.csv).
+[here](https://github.com/msyamkumar/cs220-s21-projects/blob/main/p5/hurricanes.csv).
 This data is a summary of statistics pulled from Wikipedia:
 https://en.wikipedia.org/wiki/List_of_United_States_hurricanes.  Look
 through the dataset for a recent hurricane, such as hurricane Michael,
