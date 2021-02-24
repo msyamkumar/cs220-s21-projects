@@ -17,7 +17,7 @@ None yet.
 
 The `project.py` file helps give you access to the dataset you'll use
 this week, `hurricanes.csv`.  Start by looking at the dataset
-[here](https://github.com/msyamkumar/cs220-s21-projectDesign/blob/master/p5/hurricanes.csv).
+[here](https://github.com/msyamkumar/cs220-s21-projects/blob/main/p5/hurricanes.csv).
 This data is a summary of statistics pulled from Wikipedia:
 https://en.wikipedia.org/wiki/List_of_United_States_hurricanes.  Look
 through the dataset for a recent hurricane, such as hurricane Michael,
@@ -37,9 +37,9 @@ perspective of `project.py`, the indexes of Baker, Camille, and Eloise
 are 0, 1, and 2 respectively (and so on).
 
 Download
-[hurricanes.csv](https://github.com/msyamkumar/cs220-s21-projectDesign/blob/master/p5/hurricanes.csv)
+[hurricanes.csv](https://github.com/msyamkumar/cs220-s21-projects/blob/main/p5/hurricanes.csv)
 and
-[project.py](https://github.com/msyamkumar/cs220-s21-projectDesign/blob/master/p5/project.py)
+[project.py](https://github.com/msyamkumar/cs220-s21-projects/blob/main/p5/project.py)
 to a `lab5` directory that you create, and start a new notebook in
 that directory for some scratch work.
 
