@@ -81,6 +81,8 @@ Note - the code should work even if the number of hurricanes in the dataset late
 Write your code such that it counts all the variants (e.g., "Florence",
 "FLORENCE", "fLoReNce", etc.).
 
+Hint: check String [`lower()`](https://www.w3schools.com/python/ref_string_lower.asp) method.
+
 ### #Q5: What is the name of the slowest hurricane?
 
 If you find multiple hurricanes with the same speed, you should return the first one you find.
