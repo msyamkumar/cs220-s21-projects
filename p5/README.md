@@ -2,7 +2,7 @@
 
 
 ## Corrections/Clarifications
-None yet.
+Feb 25: we updated test.py to avoid some installation issues for Windows user; corrected the expected output of q20.
 
 **Find any issues?** Report to us: 
 
