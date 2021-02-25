@@ -1,14 +1,4 @@
-import os
-import re
-import sys
-import json
-import math
-import collections
-
-import nbconvert
-import nbformat
-
-import warnings
+import ast, os, sys, subprocess, json, re, collections, math, warnings 
 
 # check the python version
 if sys.version[:5] < '3.7.0':
@@ -64,7 +54,7 @@ expected_json = {
     "17": "295500000",
     "18": "25",
     "19": "1",
-    "20": "2004",
+    "20": "2005",
     }
 
 # find a comment something like this: #q10
@@ -77,27 +67,32 @@ def extract_question_num(cell):
     return None
 
 
+# find correct python command based on version 
+def get_python_cmd():
+    cmds = ['py', 'python3', 'python']
+    for cmd in cmds:
+        try:
+            out = subprocess.check_output(cmd + ' -V', shell=True, universal_newlines=True)
+            m = re.match(r'Python\s+(\d+\.\d+)\.*\d*', out)
+            if m:
+                if float(m.group(1)) >= 3.6:
+                    return cmd
+        except subprocess.CalledProcessError:
+            pass
+    else:
+        return ''
+
 # rerun notebook and return parsed JSON
 def rerun_notebook(orig_notebook):
     new_notebook = 'cs-220-test.ipynb'
 
     # re-execute it from the beginning
-    with open(orig_notebook) as f:
-        nb = nbformat.read(f, as_version=nbformat.NO_CONVERT)
-    ep = nbconvert.preprocessors.ExecutePreprocessor(timeout=120, kernel_name='python3')
-    try:
-        out = ep.preprocess(nb, {'metadata': {'path': os.getcwd()}})
-    except nbconvert.preprocessors.CellExecutionError:
-        out = None
-        msg = 'Error executing the notebook "%s".\n\n' % orig_notebook
-        msg += 'See notebook "%s" for the traceback.' % new_notebook
-        print(msg)
-        raise
-    finally:
-        with open(new_notebook, mode='w', encoding='utf-8') as f:
-            nbformat.write(nb, f)
-
-    # Note: Here we are saving and reloading, this isn't needed but can help student's debug
+    py_cmd = get_python_cmd()
+    cmd = 'jupyter nbconvert --execute "{orig}" --to notebook --output="{new}" --ExecutePreprocessor.timeout=120'
+    cmd = cmd.format(orig=os.path.abspath(orig_notebook), new=os.path.abspath(new_notebook))
+    if py_cmd:
+        cmd = py_cmd + ' -m ' + cmd
+    subprocess.check_output(cmd, shell=True)
 
     # parse notebook
     with open(new_notebook) as f:
@@ -129,7 +124,7 @@ def check_cell_text(qnum, cell):
     try:
         actual_float = float(actual)
         expected_float = float(expected)
-        if not math.isclose(actual_float, expected_float, rel_tol=1e-03, abs_tol=1e-06):
+        if not math.isclose(actual_float, expected_float, rel_tol=1e-02, abs_tol=1e-02):
             return "found {} in {} but expected {}".format(actual, location_name, expected)
     except Exception as e:
         if actual != expected:
@@ -161,7 +156,37 @@ def grade_answers(cells):
     return results
 
 
+def linter_severe_check(nb):
+    issues = []
+    func_names = set()
+    for cell in nb['cells']:
+        if cell['cell_type'] != 'code':
+            continue
+        code = "\n".join(cell.get('source', []))
+        try:
+            tree = ast.parse(code)
+            for node in ast.walk(tree):
+                if isinstance(node, ast.FunctionDef):
+                    name = node.name
+                    if name in func_names:
+                        issues.append('name <%s> reused for multiple functions' % name)
+                    func_names.add(name)
+        except Exception as e:
+            print('Linter error: ' + str(e))
+
+    return issues
+
+
 def main():
+
+    if (
+        sys.version_info[0] == 3
+        and sys.version_info[1] >= 8
+        and sys.platform.startswith("win")
+        ):
+        import asyncio
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
     # rerun everything
     orig_notebook = 'main.ipynb'
     if len(sys.argv) > 2:
@@ -169,7 +194,22 @@ def main():
         return
     elif len(sys.argv) == 2:
         orig_notebook = sys.argv[1]
+    if not os.path.exists(orig_notebook):
+        print("File not found: " + orig_notebook)
+        print("\nIf your file is named something other than main.ipynb, you can specify that by replacing '<notebook.ipynb>' with the name you chose:\n")
+        print("python test.py <notebook.ipynb>")
+        sys.exit(1)
+        
     nb = rerun_notebook(orig_notebook)
+
+    # check for sever linter errors
+    issues = linter_severe_check(nb)
+    if issues:
+        print("\nPlease fix the following, then rerun the tests:")
+        for issue in issues:
+            print(' - ' + issue)
+        print("")
+        sys.exit(1)
 
     # extract cells that have answers
     answer_cells = {}
