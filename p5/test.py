@@ -54,7 +54,7 @@ expected_json = {
     "17": "295500000",
     "18": "25",
     "19": "1",
-    "20": "2005",
+    "20": "2004",
     }
 
 # find a comment something like this: #q10
@@ -124,7 +124,7 @@ def check_cell_text(qnum, cell):
     try:
         actual_float = float(actual)
         expected_float = float(expected)
-        if not math.isclose(actual_float, expected_float, rel_tol=1e-02, abs_tol=1e-02):
+        if not math.isclose(actual_float, expected_float, rel_tol=1e-05, abs_tol=1e-05):
             return "found {} in {} but expected {}".format(actual, location_name, expected)
     except Exception as e:
         if actual != expected:
