@@ -137,7 +137,7 @@ def deadliest_in_range(year1, year2):
 Hint: You can copy the `get_month`, `get_day`, and `get_year`
 functions you created in lab to your project notebook if you like.
 
-### #Q10: What was the deadliest hurricane of the 20th century (1901 to 2000, inclusive)?
+### #Q10: What was the deadliest hurricane of the 20th century (1901 to 2000, both inclusive)?
 
 For this and the following, count a hurricane as being in the year it
 was formed (not dissipated).
@@ -146,7 +146,7 @@ was formed (not dissipated).
 
 ### #Q12: Between the years 1800 and 2016 (both inclusive), which year witnessed the deadliest hurricane?
 
-### #Q13: How much damage (in dollars) was done by the deadliest hurricane between 1901 and 2000 (2000 inclusive)?
+### #Q13: How much damage (in dollars) was done by the deadliest hurricane between 1901 and 2000 (both inclusive)?
 
 ### #Q14: How many hurricanes were formed in the month of February?
 
