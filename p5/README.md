@@ -3,6 +3,7 @@
 
 ## Corrections/Clarifications
 Feb 25: we updated test.py to avoid some installation issues for Windows user; corrected the expected output of q20.
+Feb 26: clarification of q13: both 1901 and 2000 are inclusive.
 
 **Find any issues?** Report to us: 
 
