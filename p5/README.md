@@ -12,7 +12,7 @@ Feb 26: clarification of q13: both 1901 and 2000 are inclusive.
 
 ## Learning Objectives
 
-In this project, you will walk through how to
+In this project, you will 
 
 * Write fundamental loop structures
 * Learn basic string manipulations 
