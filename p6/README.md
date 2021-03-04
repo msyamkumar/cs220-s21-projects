@@ -176,7 +176,7 @@ Step 2) calculate their average number of reviews.
 
 ### #Q18: What percentage of rooms whose name contains the word "sweet" also contain the word "home" in its name? (case insensitive)
 
-Your answer should be a float value rounded off to 3 decimal places. You are expected to write a function that utilizes your solution for #Q4.
+Your answer should be a float value rounded off to 3 decimal places. You are expected to write a function that utilizes your solution for #Q4. Note: You do not have to disregard duplicates, like you did in #Q4.
 
 Hint: Denominator is the number of rooms with 'sweet' in their name. Numerator is the number of rooms that have both 'sweet' and 'home' in their name.
 
