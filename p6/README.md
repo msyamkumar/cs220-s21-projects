@@ -2,7 +2,7 @@
 
 ## Corrections/ Clarifications
 
-None yet.
+Mar 3: clarification of q5: please remove the duplicates in your list.
 
 **Find any issues?** Report to us:
 - Ashish Hooda <ahooda@wisc.edu>
@@ -92,7 +92,7 @@ Your answer should be in the form of a Python list. You are expected to write a 
 
 ### #Q5: Find the room names containing "free wifi" (case insensitive) or "cable" (case insensitive)
 
-Your answer should be in the form of a Python list. If there are entries that contain both "free wifi" and "cable", make sure to include it only once in your answer. If the room name has a word which contains "cable", such as "Impeccable", include it in your answer. You are expected to use the function from your solution to #Q4.
+Your answer should be in the form of a Python list. If there are entries that contain both "free wifi" and "cable", make sure to include it only once in your answer. If the room name has a word which contains "cable", such as "Impeccable", include it in your answer. You are expected to use the function from your solution to #Q4. Make sure your list doesn't contain any duplicates.
 
 ### #Q6: Which host names (`host_name` column) are anagrams of the phrase "loondar"?
 
