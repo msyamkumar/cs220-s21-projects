@@ -89,6 +89,7 @@ You can find the value "Kingsbridge" in the `neighborhood` column.
 ### #Q4: Find the room names containing "superbowl" (case insensitive)
 
 Your answer should be in the form of a Python list. You are expected to write a function to obtain the answer.
+
 Hint: There might be some missing entires in our dataset. You directly skip the row if the room name is missing.
 
 ### #Q5: Find the room names containing "free wifi" (case insensitive) or "cable" (case insensitive)
