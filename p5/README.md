@@ -189,7 +189,7 @@ Please answer with an integer. e.g. January = `1`, February = `2`. If there is a
 Hint: you can compare the year the hurricane formed and the year it dissipated. 
 
 ### #Q20: What year experienced the formation of most number of hurricanes?
-Hint: similar as `q17`. 
+Hint: similar as `q16`. 
 If two years tied for the most number of hurricanes, your answer should be the earlier year.
 
 ### ####Please remember to Kernel->Restart and Run All to check for errors then run the test.py script one more time. Good luck with your hurricanes project! :) 
