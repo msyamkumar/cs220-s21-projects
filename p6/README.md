@@ -3,6 +3,7 @@
 ## Corrections/ Clarifications
 
 Mar 3: clarification of q5: please remove the duplicates in your list.
+
 Mar 6: clarification of q18: please don't remove any duplicates in your list.
 
 **Find any issues?** Report to us:
