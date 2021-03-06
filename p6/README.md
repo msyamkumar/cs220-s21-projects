@@ -3,6 +3,7 @@
 ## Corrections/ Clarifications
 
 Mar 3: clarification of q5: please remove the duplicates in your list.
+Mar 6: clarification of q18: please don't remove any duplicates in your list.
 
 **Find any issues?** Report to us:
 - Ashish Hooda <ahooda@wisc.edu>
@@ -88,7 +89,7 @@ You can find the value "Kingsbridge" in the `neighborhood` column.
 
 ### #Q4: Find the room names containing "superbowl" (case insensitive)
 
-Your answer should be in the form of a Python list. You are expected to write a function to obtain the answer.
+Your answer should be in the form of a Python list. You are expected to write a function to obtain the answer. Make sure your list doesn't contain any duplicates.
 
 Hint: There might be some missing entires in our dataset. You directly skip the row if the room name is missing.
 
@@ -178,7 +179,7 @@ Step 2) calculate their average number of reviews.
 
 ### #Q18: What percentage of rooms whose name contains the word "sweet" also contain the word "home" in its name? (case insensitive)
 
-Your answer should be a float value rounded off to 3 decimal places. You are expected to write a function that utilizes your solution for #Q4. Note: You do not have to disregard duplicates, like you did in #Q4.
+Your answer should be a float value rounded off to 3 decimal places. You are expected to write a function that utilizes your solution for #Q4. Note: You do not have to disregard duplicates.
 
 Hint: Denominator is the number of rooms with 'sweet' in their name. Numerator is the number of rooms that have both 'sweet' and 'home' in their name.
 
