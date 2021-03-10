@@ -2,8 +2,7 @@
 
 ## Corrections/ Clarifications
 
-None yet.
-
+Mar 10: updated test.py for q10-q12. 
 
 **Find any issues?** Report to us, 
 
