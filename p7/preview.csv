@@ -1,120 +1,100 @@
 country,continent,date,new_vaccinations,total_vaccinations,people_fully_vaccinated,vaccine_used,population,population_density,gdp_per_capita,human_development_index
-Afghanistan,Asia,2/10/21,,,,,38928341,54.422,1803.987,0.511
-Afghanistan,Asia,2/11/21,,,,,38928341,54.422,1803.987,0.511
-Afghanistan,Asia,2/12/21,,,,,38928341,54.422,1803.987,0.511
-Afghanistan,Asia,2/13/21,,,,,38928341,54.422,1803.987,0.511
-Afghanistan,Asia,2/14/21,,,,,38928341,54.422,1803.987,0.511
-Afghanistan,Asia,2/15/21,,,,,38928341,54.422,1803.987,0.511
-Afghanistan,Asia,2/16/21,,,,,38928341,54.422,1803.987,0.511
-Albania,Europe,2/10/21,,,,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
-Albania,Europe,2/11/21,,,,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
-Albania,Europe,2/12/21,,,,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
-Albania,Europe,2/13/21,,,,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
-Albania,Europe,2/14/21,,,,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
-Albania,Europe,2/15/21,,,,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
-Albania,Europe,2/16/21,,,,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
-Algeria,Africa,2/10/21,,,,Sputnik V,43851043,17.348,13913.839,0.748
-Algeria,Africa,2/11/21,,,,Sputnik V,43851043,17.348,13913.839,0.748
-Algeria,Africa,2/12/21,,,,Sputnik V,43851043,17.348,13913.839,0.748
-Algeria,Africa,2/13/21,,,,Sputnik V,43851043,17.348,13913.839,0.748
-Algeria,Africa,2/14/21,,,,Sputnik V,43851043,17.348,13913.839,0.748
-Algeria,Africa,2/15/21,,,,Sputnik V,43851043,17.348,13913.839,0.748
-Algeria,Africa,2/16/21,,,,Sputnik V,43851043,17.348,13913.839,0.748
-Andorra,Europe,2/10/21,,1291,,Pfizer/BioNTech,77265,163.755,,0.868
-Andorra,Europe,2/11/21,,,,Pfizer/BioNTech,77265,163.755,,0.868
-Andorra,Europe,2/12/21,,,,Pfizer/BioNTech,77265,163.755,,0.868
-Andorra,Europe,2/13/21,,,,Pfizer/BioNTech,77265,163.755,,0.868
-Andorra,Europe,2/14/21,,,,Pfizer/BioNTech,77265,163.755,,0.868
-Andorra,Europe,2/15/21,,,,Pfizer/BioNTech,77265,163.755,,0.868
-Andorra,Europe,2/16/21,,,,Pfizer/BioNTech,77265,163.755,,0.868
-Angola,Africa,2/10/21,,,,,32866268,23.89,5819.495,0.581
-Angola,Africa,2/11/21,,,,,32866268,23.89,5819.495,0.581
-Angola,Africa,2/12/21,,,,,32866268,23.89,5819.495,0.581
-Angola,Africa,2/13/21,,,,,32866268,23.89,5819.495,0.581
-Angola,Africa,2/14/21,,,,,32866268,23.89,5819.495,0.581
-Angola,Africa,2/15/21,,,,,32866268,23.89,5819.495,0.581
-Angola,Africa,2/16/21,,,,,32866268,23.89,5819.495,0.581
-Anguilla,North America,2/10/21,,,,Oxford/AstraZeneca,15002,,,
-Anguilla,North America,2/11/21,,,,Oxford/AstraZeneca,15002,,,
-Anguilla,North America,2/12/21,,,,Oxford/AstraZeneca,15002,,,
-Anguilla,North America,2/13/21,,1341,,Oxford/AstraZeneca,15002,,,
-Anguilla,North America,2/14/21,,,,Oxford/AstraZeneca,15002,,,
-Anguilla,North America,2/15/21,,,,Oxford/AstraZeneca,15002,,,
-Anguilla,North America,2/16/21,,,,Oxford/AstraZeneca,15002,,,
-Antigua and Barbuda,North America,2/10/21,,,,,97928,231.845,21490.943,0.778
-Antigua and Barbuda,North America,2/11/21,,,,,97928,231.845,21490.943,0.778
-Antigua and Barbuda,North America,2/12/21,,,,,97928,231.845,21490.943,0.778
-Antigua and Barbuda,North America,2/13/21,,,,,97928,231.845,21490.943,0.778
-Antigua and Barbuda,North America,2/14/21,,,,,97928,231.845,21490.943,0.778
-Antigua and Barbuda,North America,2/15/21,,,,,97928,231.845,21490.943,0.778
-Antigua and Barbuda,North America,2/16/21,,,,,97928,231.845,21490.943,0.778
-Argentina,South America,2/10/21,22125,535303,197531,Sputnik V,45195777,16.177,18933.907,0.845
-Argentina,South America,2/11/21,37625,572928,210279,Sputnik V,45195777,16.177,18933.907,0.845
-Argentina,South America,2/12/21,18704,591632,223609,Sputnik V,45195777,16.177,18933.907,0.845
-Argentina,South America,2/13/21,14613,606245,234616,Sputnik V,45195777,16.177,18933.907,0.845
-Argentina,South America,2/14/21,3360,609605,237483,Sputnik V,45195777,16.177,18933.907,0.845
-Argentina,South America,2/15/21,186,609791,237610,Sputnik V,45195777,16.177,18933.907,0.845
-Argentina,South America,2/16/21,1378,611169,237916,Sputnik V,45195777,16.177,18933.907,0.845
-Armenia,Asia,2/10/21,,,,,2963234,102.931,8787.58,0.776
-Armenia,Asia,2/11/21,,,,,2963234,102.931,8787.58,0.776
-Armenia,Asia,2/12/21,,,,,2963234,102.931,8787.58,0.776
-Armenia,Asia,2/13/21,,,,,2963234,102.931,8787.58,0.776
-Armenia,Asia,2/14/21,,,,,2963234,102.931,8787.58,0.776
-Armenia,Asia,2/15/21,,,,,2963234,102.931,8787.58,0.776
-Armenia,Asia,2/16/21,,,,,2963234,102.931,8787.58,0.776
-Australia,Oceania,2/10/21,,,,,25499881,3.202,44648.71,0.944
-Australia,Oceania,2/11/21,,,,,25499881,3.202,44648.71,0.944
-Australia,Oceania,2/12/21,,,,,25499881,3.202,44648.71,0.944
-Australia,Oceania,2/13/21,,,,,25499881,3.202,44648.71,0.944
-Australia,Oceania,2/14/21,,,,,25499881,3.202,44648.71,0.944
-Australia,Oceania,2/15/21,,,,,25499881,3.202,44648.71,0.944
-Australia,Oceania,2/16/21,,,,,25499881,3.202,44648.71,0.944
-Austria,Europe,2/10/21,18660,329881,90983,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",9006400,106.749,45436.686,0.922
-Austria,Europe,2/11/21,13188,343069,106450,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",9006400,106.749,45436.686,0.922
-Austria,Europe,2/12/21,22345,365414,122349,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",9006400,106.749,45436.686,0.922
-Austria,Europe,2/13/21,3352,368766,136564,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",9006400,106.749,45436.686,0.922
-Austria,Europe,2/14/21,5268,374034,141922,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",9006400,106.749,45436.686,0.922
-Austria,Europe,2/15/21,4171,378205,143889,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",9006400,106.749,45436.686,0.922
-Austria,Europe,2/16/21,,,151477,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",9006400,106.749,45436.686,0.922
-Azerbaijan,Asia,2/10/21,,,,"Oxford/AstraZeneca, Sputnik V",10139175,119.309,15847.419,0.756
-Azerbaijan,Asia,2/11/21,,,,"Oxford/AstraZeneca, Sputnik V",10139175,119.309,15847.419,0.756
-Azerbaijan,Asia,2/12/21,,,,"Oxford/AstraZeneca, Sputnik V",10139175,119.309,15847.419,0.756
-Azerbaijan,Asia,2/13/21,,,,"Oxford/AstraZeneca, Sputnik V",10139175,119.309,15847.419,0.756
-Azerbaijan,Asia,2/14/21,,,,"Oxford/AstraZeneca, Sputnik V",10139175,119.309,15847.419,0.756
-Azerbaijan,Asia,2/15/21,,,,"Oxford/AstraZeneca, Sputnik V",10139175,119.309,15847.419,0.756
-Azerbaijan,Asia,2/16/21,,,,"Oxford/AstraZeneca, Sputnik V",10139175,119.309,15847.419,0.756
-Bahamas,North America,2/10/21,,,,,393248,39.497,27717.847,0.814
-Bahamas,North America,2/11/21,,,,,393248,39.497,27717.847,0.814
-Bahamas,North America,2/12/21,,,,,393248,39.497,27717.847,0.814
-Bahamas,North America,2/13/21,,,,,393248,39.497,27717.847,0.814
-Bahamas,North America,2/14/21,,,,,393248,39.497,27717.847,0.814
-Bahamas,North America,2/15/21,,,,,393248,39.497,27717.847,0.814
-Bahamas,North America,2/16/21,,,,,393248,39.497,27717.847,0.814
-Bahrain,Asia,2/10/21,6655,219595,,"Pfizer/BioNTech, Sinopharm/Beijing",1701583,1935.907,43290.705,0.852
-Bahrain,Asia,2/11/21,5324,224919,,"Pfizer/BioNTech, Sinopharm/Beijing",1701583,1935.907,43290.705,0.852
-Bahrain,Asia,2/12/21,7621,232540,,"Pfizer/BioNTech, Sinopharm/Beijing",1701583,1935.907,43290.705,0.852
-Bahrain,Asia,2/13/21,9720,242260,,"Pfizer/BioNTech, Sinopharm/Beijing",1701583,1935.907,43290.705,0.852
-Bahrain,Asia,2/14/21,6515,248775,,"Pfizer/BioNTech, Sinopharm/Beijing",1701583,1935.907,43290.705,0.852
-Bahrain,Asia,2/15/21,2171,250946,,"Pfizer/BioNTech, Sinopharm/Beijing",1701583,1935.907,43290.705,0.852
-Bahrain,Asia,2/16/21,2044,252990,,"Pfizer/BioNTech, Sinopharm/Beijing",1701583,1935.907,43290.705,0.852
-Bangladesh,Asia,2/10/21,158451,337769,,Oxford/AstraZeneca,164689383,1265.036,3523.984,0.632
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
+Afghanistan,Asia,2021-02-10,0,0,0,,38928341,54.422,1803.987,0.511
+Afghanistan,Asia,2021-02-11,0,0,0,,38928341,54.422,1803.987,0.511
+Afghanistan,Asia,2021-02-12,0,0,0,,38928341,54.422,1803.987,0.511
+Afghanistan,Asia,2021-02-13,0,0,0,,38928341,54.422,1803.987,0.511
+Afghanistan,Asia,2021-02-14,0,0,0,,38928341,54.422,1803.987,0.511
+Afghanistan,Asia,2021-02-15,0,0,0,,38928341,54.422,1803.987,0.511
+Afghanistan,Asia,2021-02-16,0,0,0,,38928341,54.422,1803.987,0.511
+Albania,Europe,2021-02-10,0,0,0,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
+Albania,Europe,2021-02-11,0,0,0,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
+Albania,Europe,2021-02-12,0,0,0,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
+Albania,Europe,2021-02-13,0,0,0,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
+Albania,Europe,2021-02-14,0,0,0,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
+Albania,Europe,2021-02-15,0,0,0,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
+Albania,Europe,2021-02-16,0,0,0,Pfizer/BioNTech,2877800,104.871,11803.431,0.795
+Algeria,Africa,2021-02-10,0,0,0,Sputnik V,43851043,17.348,13913.839,0.748
+Algeria,Africa,2021-02-11,0,0,0,Sputnik V,43851043,17.348,13913.839,0.748
+Algeria,Africa,2021-02-12,0,0,0,Sputnik V,43851043,17.348,13913.839,0.748
+Algeria,Africa,2021-02-13,0,0,0,Sputnik V,43851043,17.348,13913.839,0.748
+Algeria,Africa,2021-02-14,0,0,0,Sputnik V,43851043,17.348,13913.839,0.748
+Algeria,Africa,2021-02-15,0,0,0,Sputnik V,43851043,17.348,13913.839,0.748
+Algeria,Africa,2021-02-16,0,0,0,Sputnik V,43851043,17.348,13913.839,0.748
+Andorra,Europe,2021-02-10,0,1291,0,Pfizer/BioNTech,77265,163.755,,0.868
+Andorra,Europe,2021-02-11,0,1291,0,Pfizer/BioNTech,77265,163.755,,0.868
+Andorra,Europe,2021-02-12,0,1291,0,Pfizer/BioNTech,77265,163.755,,0.868
+Andorra,Europe,2021-02-13,0,1291,0,Pfizer/BioNTech,77265,163.755,,0.868
+Andorra,Europe,2021-02-14,0,1291,0,Pfizer/BioNTech,77265,163.755,,0.868
+Andorra,Europe,2021-02-15,0,1291,0,Pfizer/BioNTech,77265,163.755,,0.868
+Andorra,Europe,2021-02-16,0,1291,0,Pfizer/BioNTech,77265,163.755,,0.868
+Angola,Africa,2021-02-10,0,0,0,,32866268,23.89,5819.495,0.581
+Angola,Africa,2021-02-11,0,0,0,,32866268,23.89,5819.495,0.581
+Angola,Africa,2021-02-12,0,0,0,,32866268,23.89,5819.495,0.581
+Angola,Africa,2021-02-13,0,0,0,,32866268,23.89,5819.495,0.581
+Angola,Africa,2021-02-14,0,0,0,,32866268,23.89,5819.495,0.581
+Angola,Africa,2021-02-15,0,0,0,,32866268,23.89,5819.495,0.581
+Angola,Africa,2021-02-16,0,0,0,,32866268,23.89,5819.495,0.581
+Anguilla,North America,2021-02-10,0,0,0,Oxford/AstraZeneca,15002,,,
+Anguilla,North America,2021-02-11,0,0,0,Oxford/AstraZeneca,15002,,,
+Anguilla,North America,2021-02-12,0,0,0,Oxford/AstraZeneca,15002,,,
+Anguilla,North America,2021-02-13,0,1341,0,Oxford/AstraZeneca,15002,,,
+Anguilla,North America,2021-02-14,0,1341,0,Oxford/AstraZeneca,15002,,,
+Anguilla,North America,2021-02-15,0,1341,0,Oxford/AstraZeneca,15002,,,
+Anguilla,North America,2021-02-16,0,1341,0,Oxford/AstraZeneca,15002,,,
+Antigua and Barbuda,North America,2021-02-10,0,0,0,,97928,231.845,21490.943,0.778
+Antigua and Barbuda,North America,2021-02-11,0,0,0,,97928,231.845,21490.943,0.778
+Antigua and Barbuda,North America,2021-02-12,0,0,0,,97928,231.845,21490.943,0.778
+Antigua and Barbuda,North America,2021-02-13,0,0,0,,97928,231.845,21490.943,0.778
+Antigua and Barbuda,North America,2021-02-14,0,0,0,,97928,231.845,21490.943,0.778
+Antigua and Barbuda,North America,2021-02-15,0,0,0,,97928,231.845,21490.943,0.778
+Antigua and Barbuda,North America,2021-02-16,0,0,0,,97928,231.845,21490.943,0.778
+Argentina,South America,2021-02-10,22125,535303,197531,Sputnik V,45195777,16.177,18933.907,0.845
+Argentina,South America,2021-02-11,37625,572928,210279,Sputnik V,45195777,16.177,18933.907,0.845
+Argentina,South America,2021-02-12,18704,591632,223609,Sputnik V,45195777,16.177,18933.907,0.845
+Argentina,South America,2021-02-13,14613,606245,234616,Sputnik V,45195777,16.177,18933.907,0.845
+Argentina,South America,2021-02-14,3360,609605,237483,Sputnik V,45195777,16.177,18933.907,0.845
+Argentina,South America,2021-02-15,186,609791,237610,Sputnik V,45195777,16.177,18933.907,0.845
+Argentina,South America,2021-02-16,1378,611169,237916,Sputnik V,45195777,16.177,18933.907,0.845
+Armenia,Asia,2021-02-10,0,0,0,,2963234,102.931,8787.58,0.776
+Armenia,Asia,2021-02-11,0,0,0,,2963234,102.931,8787.58,0.776
+Armenia,Asia,2021-02-12,0,0,0,,2963234,102.931,8787.58,0.776
+Armenia,Asia,2021-02-13,0,0,0,,2963234,102.931,8787.58,0.776
+Armenia,Asia,2021-02-14,0,0,0,,2963234,102.931,8787.58,0.776
+Armenia,Asia,2021-02-15,0,0,0,,2963234,102.931,8787.58,0.776
+Armenia,Asia,2021-02-16,0,0,0,,2963234,102.931,8787.58,0.776
+Australia,Oceania,2021-02-10,0,0,0,,25499881,3.202,44648.71,0.944
+Australia,Oceania,2021-02-11,0,0,0,,25499881,3.202,44648.71,0.944
+Australia,Oceania,2021-02-12,0,0,0,,25499881,3.202,44648.71,0.944
+Australia,Oceania,2021-02-13,0,0,0,,25499881,3.202,44648.71,0.944
+Australia,Oceania,2021-02-14,0,0,0,,25499881,3.202,44648.71,0.944
+Australia,Oceania,2021-02-15,0,0,0,,25499881,3.202,44648.71,0.944
+Australia,Oceania,2021-02-16,0,0,0,,25499881,3.202,44648.71,0.944
+Austria,Europe,2021-02-10,18660,329881,90983,Moderna,9006400,106.749,45436.686,0.922
+Austria,Europe,2021-02-11,13188,343069,106450,Moderna,9006400,106.749,45436.686,0.922
+Austria,Europe,2021-02-12,22345,365414,122349,Moderna,9006400,106.749,45436.686,0.922
+Austria,Europe,2021-02-13,3352,368766,136564,Moderna,9006400,106.749,45436.686,0.922
+Austria,Europe,2021-02-14,5268,374034,141922,Moderna,9006400,106.749,45436.686,0.922
+Austria,Europe,2021-02-15,4171,378205,143889,Moderna,9006400,106.749,45436.686,0.922
+Austria,Europe,2021-02-16,0,378205,151477,Moderna,9006400,106.749,45436.686,0.922
+Azerbaijan,Asia,2021-02-10,0,0,0,Oxford/AstraZeneca,10139175,119.309,15847.419,0.756
+Azerbaijan,Asia,2021-02-11,0,0,0,Oxford/AstraZeneca,10139175,119.309,15847.419,0.756
+Azerbaijan,Asia,2021-02-12,0,0,0,Oxford/AstraZeneca,10139175,119.309,15847.419,0.756
+Azerbaijan,Asia,2021-02-13,0,0,0,Oxford/AstraZeneca,10139175,119.309,15847.419,0.756
+Azerbaijan,Asia,2021-02-14,0,0,0,Oxford/AstraZeneca,10139175,119.309,15847.419,0.756
+Azerbaijan,Asia,2021-02-15,0,0,0,Oxford/AstraZeneca,10139175,119.309,15847.419,0.756
+Azerbaijan,Asia,2021-02-16,0,0,0,Oxford/AstraZeneca,10139175,119.309,15847.419,0.756
+Bahamas,North America,2021-02-10,0,0,0,,393248,39.497,27717.847,0.814
+Bahamas,North America,2021-02-11,0,0,0,,393248,39.497,27717.847,0.814
+Bahamas,North America,2021-02-12,0,0,0,,393248,39.497,27717.847,0.814
+Bahamas,North America,2021-02-13,0,0,0,,393248,39.497,27717.847,0.814
+Bahamas,North America,2021-02-14,0,0,0,,393248,39.497,27717.847,0.814
+Bahamas,North America,2021-02-15,0,0,0,,393248,39.497,27717.847,0.814
+Bahamas,North America,2021-02-16,0,0,0,,393248,39.497,27717.847,0.814
+Bahrain,Asia,2021-02-10,6655,219595,0,Pfizer/BioNTech,1701583,1935.907,43290.705,0.852
+Bahrain,Asia,2021-02-11,5324,224919,0,Pfizer/BioNTech,1701583,1935.907,43290.705,0.852
+Bahrain,Asia,2021-02-12,7621,232540,0,Pfizer/BioNTech,1701583,1935.907,43290.705,0.852
+Bahrain,Asia,2021-02-13,9720,242260,0,Pfizer/BioNTech,1701583,1935.907,43290.705,0.852
+Bahrain,Asia,2021-02-14,6515,248775,0,Pfizer/BioNTech,1701583,1935.907,43290.705,0.852
+Bahrain,Asia,2021-02-15,2171,250946,0,Pfizer/BioNTech,1701583,1935.907,43290.705,0.852
+Bahrain,Asia,2021-02-16,2044,252990,0,Pfizer/BioNTech,1701583,1935.907,43290.705,0.852
+Bangladesh,Asia,2021-02-10,158451,337769,0,Oxford/AstraZeneca,164689383,1265.036,3523.984,0.632
