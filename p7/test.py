@@ -1,25 +1,21 @@
-import ast
-import os
-import re
-import sys
-import json
-import math
-import collections
-import nbconvert
-import nbformat
-import warnings
+import ast, os, sys, subprocess, json, re, collections, math, warnings
+
 import asyncio
 # Resolves asyncio problem for windows users
 if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+
 # check the python version
 if sys.version[:5] < '3.7.0':
     warnings.warn('Your current python version is {}. Please upgrade your python version to at least 3.7.0.'.format(sys.version[:5]))
 
-
 PASS = "PASS"
-TEXT_FORMAT = "text"
+TEXT_FORMAT = "text" # use when expected answer is a str, int, float, or bool
+TEXT_FORMAT_DICT = "text dict" # use when the expected answer is a dictionary
+TEXT_FORMAT_UNORDERED_LIST = "text unordered_list" # use when the expected answer is a list where the order does *not* matter
+TEXT_FORMAT_ORDERED_LIST = "text ordered_list" # use when the expected answer is a list where the order does matter
+TEXT_FORMAT_LIST_DICTS_ORDERED = "text list_dicts_ordered" # use when the expected answer is a list of dicts where the order does matter
 
 Question = collections.namedtuple("Question", ["number", "weight", "format"])
 
@@ -28,21 +24,21 @@ questions = [
     Question(number=2, weight=1, format=TEXT_FORMAT),
     Question(number=3, weight=1, format=TEXT_FORMAT),
     Question(number=4, weight=1, format=TEXT_FORMAT),
-    Question(number=5, weight=1, format=TEXT_FORMAT),
+    Question(number=5, weight=1, format=TEXT_FORMAT_UNORDERED_LIST),
     Question(number=6, weight=1, format=TEXT_FORMAT),
-    Question(number=7, weight=1, format=TEXT_FORMAT),
-    Question(number=8, weight=1, format=TEXT_FORMAT),
-    Question(number=9, weight=1, format=TEXT_FORMAT),
-    Question(number=10, weight=1, format=TEXT_FORMAT),
+    Question(number=7, weight=1, format=TEXT_FORMAT_ORDERED_LIST),
+    Question(number=8, weight=1, format=TEXT_FORMAT_ORDERED_LIST),
+    Question(number=9, weight=1, format=TEXT_FORMAT_UNORDERED_LIST),
+    Question(number=10, weight=1, format=TEXT_FORMAT_DICT),
     Question(number=11, weight=1, format=TEXT_FORMAT),
-    Question(number=12, weight=1, format=TEXT_FORMAT),
-    Question(number=13, weight=1, format=TEXT_FORMAT),
-    Question(number=14, weight=1, format=TEXT_FORMAT),
+    Question(number=12, weight=1, format=TEXT_FORMAT_UNORDERED_LIST),
+    Question(number=13, weight=1, format=TEXT_FORMAT_DICT),
+    Question(number=14, weight=1, format=TEXT_FORMAT_DICT),
     Question(number=15, weight=1, format=TEXT_FORMAT),
-    Question(number=16, weight=1, format=TEXT_FORMAT),
-    Question(number=17, weight=1, format=TEXT_FORMAT),
-    Question(number=18, weight=1, format=TEXT_FORMAT),
-    Question(number=19, weight=1, format=TEXT_FORMAT),
+    Question(number=16, weight=1, format=TEXT_FORMAT_DICT),
+    Question(number=17, weight=1, format=TEXT_FORMAT_DICT),
+    Question(number=18, weight=1, format=TEXT_FORMAT_UNORDERED_LIST),
+    Question(number=19, weight=1, format=TEXT_FORMAT_DICT),
     Question(number=20, weight=1, format=TEXT_FORMAT),
 ]
 question_nums = set([q.number for q in questions])
@@ -721,7 +717,7 @@ expected_json = {
            'Covaxin': ['India'],
            'Sinovac': ['Indonesia', 'Turkey']},
     "20": 'Moderna',
-}
+    }
 
 # find a comment something like this: #q10
 def extract_question_num(cell):
@@ -733,31 +729,36 @@ def extract_question_num(cell):
     return None
 
 
+# find correct python command based on version
+def get_python_cmd():
+    cmds = ['py', 'python3', 'python']
+    for cmd in cmds:
+        try:
+            out = subprocess.check_output(cmd + ' -V', shell=True, universal_newlines=True)
+            m = re.match(r'Python\s+(\d+\.\d+)\.*\d*', out)
+            if m:
+                if float(m.group(1)) >= 3.6:
+                    return cmd
+        except subprocess.CalledProcessError:
+            pass
+    else:
+        return ''
+
 # rerun notebook and return parsed JSON
 def rerun_notebook(orig_notebook):
     new_notebook = 'cs-220-test.ipynb'
 
     # re-execute it from the beginning
-    with open(orig_notebook, encoding='utf-8') as f:
-        nb = nbformat.read(f, as_version=nbformat.NO_CONVERT)
-    ep = nbconvert.preprocessors.ExecutePreprocessor(timeout=120, kernel_name='python3')
-    try:
-        out = ep.preprocess(nb, {'metadata': {'path': os.getcwd()}})
-    except nbconvert.preprocessors.CellExecutionError:
-        out = None
-        msg = 'Error executing the notebook "%s".\n\n' % orig_notebook
-        msg += 'See notebook "%s" for the traceback.' % new_notebook
-        print(msg)
-        raise
-    finally:
-        with open(new_notebook, mode='w', encoding='utf-8') as f:
-            nbformat.write(nb, f)
-
-    # Note: Here we are saving and reloading, this isn't needed but can help student's debug
+    py_cmd = get_python_cmd()
+    cmd = 'jupyter nbconvert --execute "{orig}" --to notebook --output="{new}" --ExecutePreprocessor.timeout=120'
+    cmd = cmd.format(orig=os.path.abspath(orig_notebook), new=os.path.abspath(new_notebook))
+    if py_cmd:
+        cmd = py_cmd + ' -m ' + cmd
+    subprocess.check_output(cmd, shell=True)
 
     # parse notebook
-    with open(new_notebook, encoding='utf-8') as f:
-        nb = json.load(f)
+    with open(new_notebook) as f:
+        nb = json.load(f, encoding='utf-8')
     return nb
 
 
@@ -768,52 +769,144 @@ def normalize_json(orig):
         return 'not JSON'
 
 
-def check_cell_text(qnum, cell):
+def check_cell_text(qnum, cell, format):
     outputs = cell.get('outputs', [])
     if len(outputs) == 0:
         return 'no outputs in an Out[N] cell'
-    actual_lines = None
-    for out in outputs:
-        lines = out.get('data', {}).get('text/plain', [])
-        if lines:
-            actual_lines = lines
-            break
-    if actual_lines == None:
-        return 'no Out[N] output found for cell (note: printing the output does not work)'
+    actual_lines = outputs[0].get('data', {}).get('text/plain', [])
     actual = ''.join(actual_lines)
     actual = ast.literal_eval(actual)
     expected = expected_json[str(qnum)]
 
-    expected_mismatch = False
-
     if type(expected) != type(actual):
         return "expected an answer of type %s but found one of type %s" % (type(expected), type(actual))
-    elif type(expected) == float:
-        if not math.isclose(actual, expected, rel_tol=1e-06, abs_tol=1e-06):
-            expected_mismatch = True
-    elif type(expected) == list:
-        extra = set(actual) - set(expected)
-        missing = set(expected) - set(actual)
-        if extra:
-            return "found unexpected entry in list: %s" % repr(list(extra)[0])
-        elif missing:
-            return "missing %d entries list, such as: %s" % (len(missing), repr(list(missing)[0]))
-        elif len(actual) != len(expected):
-            return "expected %d entries in the list but found %d" % (len(expected), len(actual))
+
+    if format == TEXT_FORMAT:
+        if type(expected) == float:
+            if not math.isclose(actual, expected, rel_tol=1e-06, abs_tol=15e-05):
+                return "expected %s but found %s" % (str(expected), str(actual))
+        else:
+            if expected != actual:
+                return "expected %s but found %s" % (str(expected), repr(actual))
+    elif format == TEXT_FORMAT_UNORDERED_LIST:
+        try:
+            extra = set(actual) - set(expected)
+            missing = set(expected) - set(actual)
+            if missing:
+                return "missing %d entries from list, such as: %s" % (len(missing), repr(list(missing)[0]))
+            elif extra:
+                return "found unexpected entry in list: %s" % repr(list(extra)[0])
+            elif len(actual) != len(expected):
+                return "expected %d entries in the list but found %d" % (len(expected), len(actual))
+        except TypeError:
+            # Just do a simple comparison
+            if actual != expected:
+                return "expected %s" % repr(expected)
+    elif format == TEXT_FORMAT_ORDERED_LIST:
+        try:
+            extra = set(actual) - set(expected)
+            missing = set(expected) - set(actual)
+            if missing:
+                return "missing %d entries from list, such as: %s" % (len(missing), repr(list(missing)[0]))
+            elif extra:
+                return "found unexpected entry in list: %s" % repr(list(extra)[0])
+            elif len(actual) != len(expected):
+                return "expected %d entries in the list but found %d" % (len(expected), len(actual))
+            elif expected != actual:
+                if sorted(expected) == sorted(actual):
+                    return "list not sorted as expected"
+                for i in range(len(expected)):
+                    if type(expected[i]) != type(actual[i]):
+                        return "expected an element of type %s at index %d of the list, but found one of type %s" % (type(expected[i]), i, type(actual[i]))
+                    elif expected[i] != actual[i]:
+                        return "expected %s at index %d of the list, but found %s" % (repr(expected[i]), i, repr(actual[i]))
+        except TypeError:
+            # Just do a simple comparison
+            if actual != expected:
+                return "expected %s" % repr(expected)
+    elif format == TEXT_FORMAT_DICT:
+        missing_keys = set(expected.keys()) - set(actual.keys())
+        extra_keys = set(actual.keys()) - set(expected.keys())
+        if missing_keys:
+            key = list(missing_keys)[0]
+            return "missing %d key value pairs (%s: %s) from dict" % (len(missing_keys), repr(key), repr(expected[key]))
+        elif extra_keys:
+            key = list(extra_keys)[0]
+            return "found unexpected key value pair (%s: %s) in dict" % (repr(key), repr(actual[key]))
+        for key in expected:
+            if type(expected[key]) != type(actual[key]):
+                return "expected a value of type %s for the key %s, but found %s" % (type(expected[key]), repr(key), type(actual[key]))
+            elif type(expected[key]) == float:
+                if not math.isclose(actual[key], expected[key], rel_tol=1e-06, abs_tol=15e-05):
+                    return "expected %s but found %s" % (str(expected[key]), str(actual[key]))
+            elif expected[key] != actual[key]:
+                if type(expected[key]) == list:
+                    extra = set(actual[key]) - set(expected[key])
+                    missing = set(expected[key]) - set(actual[key])
+                    if missing:
+                        return "missing %d entries from value for key %s, such as: %s" % (len(missing), repr(key), repr(list(missing)[0]))
+                    elif extra:
+                        return "found unexpected entry %s in the value for key %s" % (repr(list(extra)[0]), repr(key))
+                    elif len(actual[key]) != len(expected[key]):
+                        return "expected %d entries in the value for key %s, but found %d" % (len(expected[key]), repr(key), len(actual[key]))
+                    elif sorted(expected[key]) == sorted(actual[key]):
+                        return "value of key %s not sorted as expected" % (repr(key))
+                return "expected value %s for the key %s, but found %s" % (repr(expected[key]), repr(key), repr(actual[key]))
+    elif format == TEXT_FORMAT_LIST_DICTS_ORDERED:
+        try:
+            if len(expected) < len(actual):
+                for extra in actual:
+                    if extra not in expected:
+                        return "found unexpected entry in list: %s" % repr(extra)
+                return "expected %d entries in the list but found %d" % (len(expected), len(actual))
+            elif len(expected) > len(actual):
+                for missing in expected:
+                    if missing not in actual:
+                        return "missing entries from list, such as %s" % repr(missing)
+                return "expected %d entries in the list but found %d" % (len(expected), len(actual))
+            for i in range(len(expected)):
+                expected_dict = expected[i]
+                actual_dict = actual[i]
+                if type(actual_dict) != type(expected_dict):
+                    return "expected a list of %s but found one of type %s at index %d" % (type(expected_dict), type(actual_dict), i)
+                missing_keys = set(expected_dict.keys()) - set(actual_dict.keys())
+                extra_keys = set(actual_dict.keys()) - set(expected_dict.keys())
+                if missing_keys:
+                    key = list(missing_keys)[0]
+                    return "missing %d key value pairs (%s: %s) from dict at index %d of the list" % (len(missing_keys), repr(key), repr(expected_dict[key]), i)
+                elif extra_keys:
+                    key = list(extra_keys)[0]
+                    return "found unexpected key value pair (%s: %s) in dict at index %d of the list" % (repr(key), repr(actual_dict[key]), i)
+                for key in expected_dict:
+                    if type(expected_dict[key]) != type(actual_dict[key]):
+                        return "expected a value of type %s for the key %s in dict at index %d of the list, but found %s" % (type(expected_dict[key]), repr(key), i, type(actual_dict[key]))
+                    if expected_dict[key] != actual_dict[key]:
+                        if type(expected_dict[key]) == list:
+                            extra = set(actual_dict[key]) - set(expected_dict[key])
+                            missing = set(expected_dict[key]) - set(actual_dict[key])
+                            if missing:
+                                return "missing %d entries from value for key %s, such as %s, at index %d of the list" % (len(missing), repr(key), repr(list(missing)[0]), i)
+                            elif extra:
+                                return "found unexpected entry %s in the value for key %s at index %d of the list" % (repr(list(extra)[0]), repr(key), i)
+                            elif len(actual_dict[key]) != len(expected_dict[key]):
+                                return "expected %d entries in the value for key %s but found %d, at index %d of the list" % (len(expected_dict[key]), repr(key), len(actual_dict[key]), i)
+                            elif sorted(expected_dict[key]) == sorted(actual_dict[key]):
+                                return "value of key %s not sorted as expected" % (repr(key))
+                        return "expected value %s for the key %s in dict at index %d of the list, but found %s" % (repr(expected_dict[key]), repr(key), i, repr(actual_dict[key]))
+        except:
+            # Just do a simple comparison
+            if actual != expected:
+                return "expected %s" % repr(expected)
     else:
         if expected != actual:
-            expected_mismatch = True
-
-    if expected_mismatch:
-        return "found {} in cell {} but expected {}".format(actual, qnum, expected)
-
+            return "expected %s" % repr(expected)
     return PASS
 
 
 def check_cell(question, cell):
     print('Checking question %d' % question.number)
-    if question.format == TEXT_FORMAT:
-        return check_cell_text(question.number, cell)
+    if question.format.split()[0] == TEXT_FORMAT:
+        return check_cell_text(question.number, cell, question.format)
 
     raise Exception("invalid question type")
 
@@ -834,7 +927,37 @@ def grade_answers(cells):
     return results
 
 
+def linter_severe_check(nb):
+    issues = []
+    func_names = set()
+    for cell in nb['cells']:
+        if cell['cell_type'] != 'code':
+            continue
+        code = "\n".join(cell.get('source', []))
+        try:
+            tree = ast.parse(code)
+            for node in ast.walk(tree):
+                if isinstance(node, ast.FunctionDef):
+                    name = node.name
+                    if name in func_names:
+                        issues.append('name <%s> reused for multiple functions' % name)
+                    func_names.add(name)
+        except Exception as e:
+            print('Linter error: ' + str(e))
+
+    return issues
+
+
 def main():
+
+    if (
+        sys.version_info[0] == 3
+        and sys.version_info[1] >= 8
+        and sys.platform.startswith("win")
+        ):
+        import asyncio
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
     # rerun everything
     orig_notebook = 'main.ipynb'
     if len(sys.argv) > 2:
@@ -842,7 +965,22 @@ def main():
         return
     elif len(sys.argv) == 2:
         orig_notebook = sys.argv[1]
+    if not os.path.exists(orig_notebook):
+        print("File not found: " + orig_notebook)
+        print("\nIf your file is named something other than main.ipynb, you can specify that by replacing '<notebook.ipynb>' with the name you chose:\n")
+        print("python test.py <notebook.ipynb>")
+        sys.exit(1)
+
     nb = rerun_notebook(orig_notebook)
+
+    # check for sever linter errors
+    issues = linter_severe_check(nb)
+    if issues:
+        print("\nPlease fix the following, then rerun the tests:")
+        for issue in issues:
+            print(' - ' + issue)
+        print("")
+        sys.exit(1)
 
     # extract cells that have answers
     answer_cells = {}
@@ -866,7 +1004,7 @@ def main():
         print("  Test %d: %s" % (test["test"], test["result"]))
 
     print('\nTOTAL SCORE: %.2f%%' % results['score'])
-    with open('result.json', 'w', encoding='utf-8') as f:
+    with open('result.json', 'w') as f:
         f.write(json.dumps(results, indent=2))
 
 
