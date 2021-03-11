@@ -757,8 +757,8 @@ def rerun_notebook(orig_notebook):
     subprocess.check_output(cmd, shell=True)
 
     # parse notebook
-    with open(new_notebook) as f:
-        nb = json.load(f, encoding='utf-8')
+    with open(new_notebook, encoding='utf-8') as f:
+        nb = json.load(f)
     return nb
 
 
