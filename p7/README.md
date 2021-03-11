@@ -4,7 +4,7 @@
 
 Mar 10: updated test.py for q10-q12 and covid19.csv. If you have already finished p7, the new test.py will still work. You don't need to do any modification to your code except cross-checking one more time before submitting.
 
-Mar 11: updated test.py to make it work for both pythob 3.8 and 3.9.
+Mar 11: updated test.py to make it work for both pythob 3.8 and 3.9; make the coding style requirement more clear.
 
 **Find any issues?** Report to us, 
 
@@ -15,9 +15,9 @@ Mar 11: updated test.py to make it work for both pythob 3.8 and 3.9.
 
  In this project, you will
 
-* learn how to use dictionaries to answer questions about provided data;
+* use dictionaries to answer questions about provided data;
 * gain more experience with using lists in Python; using `sorted` method
-* learn how to write programs to interpret data present in csv files;
+* write programs to interpret data present in csv files;
 * **develop good coding styling habits (points may be deducted for bad coding styles)**.
 
 
@@ -30,7 +30,7 @@ Let's track COVID-19 vaccination, Python style!  In this project, you will get m
 * Don't name the variables and functions as python keywords or built-in functions. Bad example: str = "23".
 * Don't define functions with the same name or define one function multiple times. Just keep the best version.
 * Put all `import` commands together at the second cell of `main.ipynb`, the first cell should be submission information (netid and etc).
-* Think twice before creating a function without any parameters. Defining a new functions is unnecessary sometimes. The advantage of writing functions is that we can reuse the same code. If we only use this function once, there is no need to create a new function.
+* Think twice before creating a function without any parameters. Defining a new functions is unnecessary sometimes. The advantage of writing functions is that we can reuse the same code. If we only use this function once, there is no need to create a new function. But feel free to create helper functions with one or more parameters that can be used for multiple questions.
 * Avoid redundant logic.
 * Please don't import any additional modules that we didn't ask you to import, **TAs will deduct points for that.**
 
