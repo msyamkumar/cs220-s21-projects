@@ -2,7 +2,7 @@
 
 ## Corrections/ Clarifications
 
-Mar 10: updated test.py for q10-q12. 
+Mar 10: updated test.py for q10-q12 and covid19.csv. If you have already finished p7, the new test.py will still work. You don't need to do any modification to your code except cross-checking one more time before submitting.
 
 **Find any issues?** Report to us, 
 
