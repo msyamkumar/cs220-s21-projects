@@ -4,6 +4,8 @@
 
 Mar 10: updated test.py for q10-q12 and covid19.csv. If you have already finished p7, the new test.py will still work. You don't need to do any modification to your code except cross-checking one more time before submitting.
 
+Mar 11: updated test.py to make it work for both pythob 3.8 and 3.9.
+
 **Find any issues?** Report to us, 
 
 - ABHAY KUMAR <abhay.kumar@wisc.edu> 
