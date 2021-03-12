@@ -4,7 +4,7 @@
 
 Mar 10: updated test.py for q10-q12 and covid19.csv. If you have already finished p7, the new test.py will still work. You don't need to do any modification to your code except cross-checking one more time before submitting.
 
-Mar 11: updated test.py to make it work for both pythob 3.8 and 3.9; make the coding style requirement more clear.
+Mar 11: updated test.py to make it work for both pythob 3.8 and 3.9; made the coding style requirement more clear; added some detailed to q19's description.
 
 **Find any issues?** Report to us, 
 
@@ -218,9 +218,12 @@ Hint: Try defining a function with parameters: `vaccine_name`, `date`
 
 #### #Q19: Which countries use a given vaccine? You should output a dictionary with (key, value) pair as (vaccine_name, list of countries using that vaccine) 
 Hint1: You can use the result from q9 and the functions defined for q18.  The output list (from Q9) containing all vaccine names can be used.
+
 Hint2: Also use the fact that vaccines used by a country is same for all dates. You can fix date, say `2021-02-16`. The answer will remain same for any date.
 
+We expect the names in the countries list to appear in the same order as they appear in the dataset. In order words, the country list should be sorted alphabetically.
 
+Hint3: You can use “sorted” operation on the #q18 output countries list.
 
 #### #Q20: You want to rely on collective judgement and you would prefer to take vaccine that has been used by maximum number of countries. Which vaccine is used by most countries?
 Hint: You can count the number of countries in q19 output dictionary
