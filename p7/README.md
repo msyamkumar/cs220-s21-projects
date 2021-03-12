@@ -221,7 +221,7 @@ Hint1: You can use the result from q9 and the functions defined for q18.  The ou
 
 Hint2: Also use the fact that vaccines used by a country is same for all dates. You can fix date, say `2021-02-16`. The answer will remain same for any date.
 
-We expect the names in the countries list to appear in the same order as they appear in the dataset. In order words, the country list should be sorted alphabetically.
+**We expect the names in the countries list to appear in the same order as they appear in the dataset. In order words, the country list should be sorted alphabetically.**
 
 Hint3: You can use “sorted” operation on the #q18 output countries list.
 
