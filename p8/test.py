@@ -1,19 +1,21 @@
 import ast, os, sys, subprocess, json, re, collections, math, warnings
-import asyncio
-# Resolves asyncio problem for windows users
-if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # check the python version
 if sys.version[:5] < '3.7.0':
     warnings.warn('Your current python version is {}. Please upgrade your python version to at least 3.7.0.'.format(sys.version[:5]))
 
+################################################################################
+REL_TOL = 1e-06 # relative tolerance for floats
+ABS_TOL = 15e-05 # absolute tolerance for floats
+LINTER = True # set to False if linter should be turned off for project
+################################################################################
+
 PASS = "PASS"
-TEXT_FORMAT = "text" # use when expected answer is a str, int, float, or bool
-TEXT_FORMAT_DICT = "text dict" # use when the expected answer is a dictionary
-TEXT_FORMAT_UNORDERED_LIST = "text unordered_list" # use when the expected answer is a list where the order does *not* matter
-TEXT_FORMAT_ORDERED_LIST = "text ordered_list" # use when the expected answer is a list where the order does matter
-TEXT_FORMAT_LIST_DICTS_ORDERED = "text list_dicts_ordered" # use when the expected answer is a list of dicts where the order does matter
+TEXT_FORMAT = "text" # question type when expected answer is a str, int, float, or bool
+TEXT_FORMAT_UNORDERED_LIST = "text list_unordered" # question type when the expected answer is a list where the order does *not* matter
+TEXT_FORMAT_ORDERED_LIST = "text list_ordered" # question type when the expected answer is a list where the order does matter
+TEXT_FORMAT_DICT = "text dict" # question type when the expected answer is a dictionary
+TEXT_FORMAT_LIST_DICTS_ORDERED = "text list_dicts_ordered" # question type when the expected answer is a list of dicts where the order does matter
 
 Question = collections.namedtuple("Question", ["number", "weight", "format"])
 
@@ -268,7 +270,7 @@ expected_json = {
     "16": 24,
     "17": 38756,
     "18": 14233,
-    "19": 94.6424,
+    "19":94.64240831369706,
     "20": [{'title': 'The Tourist',
               'year': 2010,
               'genres': ['Action', 'Adventure', 'Crime'],
@@ -332,132 +334,159 @@ def check_cell_text(qnum, cell, format):
     outputs = cell.get('outputs', [])
     if len(outputs) == 0:
         return 'no outputs in an Out[N] cell'
-    actual_lines = outputs[0].get('data', {}).get('text/plain', [])
+    actual_lines = None
+    for out in outputs:
+        lines = out.get('data', {}).get('text/plain', [])
+        if lines:
+            actual_lines = lines
+            break
+    if actual_lines == None:
+        return 'no Out[N] output found for cell (note: printing the output does not work)'
     actual = ''.join(actual_lines)
     actual = ast.literal_eval(actual)
     expected = expected_json[str(qnum)]
 
-    if type(expected) != type(actual):
-        return "expected an answer of type %s but found one of type %s" % (type(expected), type(actual))
-
-    if format == TEXT_FORMAT:
-        if type(expected) == float:
-            if not math.isclose(actual, expected, rel_tol=1e-06, abs_tol=15e-05):
-                return "expected %s but found %s" % (str(expected), str(actual))
+    try:
+        if format == TEXT_FORMAT:
+            return simple_compare(expected, actual)
+        elif format == TEXT_FORMAT_ORDERED_LIST:
+            return list_compare_ordered(expected, actual)
+        elif format == TEXT_FORMAT_UNORDERED_LIST:
+            return list_compare_unordered(expected, actual)
+        elif format == TEXT_FORMAT_DICT:
+            return dict_compare(expected, actual)
+        elif format == TEXT_FORMAT_LIST_DICTS_ORDERED:
+            return list_compare_ordered(expected, actual)
         else:
             if expected != actual:
-                return "expected %s but found %s" % (str(expected), repr(actual))
-    elif format == TEXT_FORMAT_UNORDERED_LIST:
-        try:
-            extra = set(actual) - set(expected)
-            missing = set(expected) - set(actual)
-            if missing:
-                return "missing %d entries from list, such as: %s" % (len(missing), repr(list(missing)[0]))
-            elif extra:
-                return "found unexpected entry in list: %s" % repr(list(extra)[0])
-            elif len(actual) != len(expected):
-                return "expected %d entries in the list but found %d" % (len(expected), len(actual))
-        except TypeError:
-            # Just do a simple comparison
-            if actual != expected:
-                return "expected %s" % repr(expected)
-    elif format == TEXT_FORMAT_ORDERED_LIST:
-        try:
-            extra = set(actual) - set(expected)
-            missing = set(expected) - set(actual)
-            if missing:
-                return "missing %d entries from list, such as: %s" % (len(missing), repr(list(missing)[0]))
-            elif extra:
-                return "found unexpected entry in list: %s" % repr(list(extra)[0])
-            elif len(actual) != len(expected):
-                return "expected %d entries in the list but found %d" % (len(expected), len(actual))
-            elif expected != actual:
-                if sorted(expected) == sorted(actual):
-                    return "list not sorted as expected"
-                for i in range(len(expected)):
-                    if type(expected[i]) != type(actual[i]):
-                        return "expected an element of type %s at index %d of the list, but found one of type %s" % (type(expected[i]), i, type(actual[i]))
-                    elif expected[i] != actual[i]:
-                        return "expected %s at index %d of the list, but found %s" % (repr(expected[i]), i, repr(actual[i]))
-        except TypeError:
-            # Just do a simple comparison
-            if actual != expected:
-                return "expected %s" % repr(expected)
-    elif format == TEXT_FORMAT_DICT:
-        missing_keys = set(expected.keys()) - set(actual.keys())
-        extra_keys = set(actual.keys()) - set(expected.keys())
-        if missing_keys:
-            key = list(missing_keys)[0]
-            return "missing %d key value pairs (%s: %s) from dict" % (len(missing_keys), repr(key), repr(expected[key]))
-        elif extra_keys:
-            key = list(extra_keys)[0]
-            return "found unexpected key value pair (%s: %s) in dict" % (repr(key), repr(actual[key]))
-        for key in expected:
-            if type(expected[key]) != type(actual[key]):
-                return "expected a value of type %s for the key %s, but found %s" % (type(expected[key]), repr(key), type(actual[key]))
-            elif expected[key] != actual[key]:
-                if type(expected[key]) == list:
-                    extra = set(actual[key]) - set(expected[key])
-                    missing = set(expected[key]) - set(actual[key])
-                    if missing:
-                        return "missing %d entries from value for key %s, such as: %s" % (len(missing), repr(key), repr(list(missing)[0]))
-                    elif extra:
-                        return "found unexpected entry %s in the value for key %s" % (repr(list(extra)[0]), repr(key))
-                    elif len(actual[key]) != len(expected[key]):
-                        return "expected %d entries in the value for key %s, but found %d" % (len(expected[key]), repr(key), len(actual[key]))
-                    elif sorted(expected[key]) == sorted(actual[key]):
-                        return "value of key %s not sorted as expected" % (repr(key))
-                return "expected value %s for the key %s, but found %s" % (repr(expected[key]), repr(key), repr(actual[key]))
-    elif format == TEXT_FORMAT_LIST_DICTS_ORDERED:
-        try:
-            if len(expected) < len(actual):
-                for extra in actual:
-                    if extra not in expected:
-                        return "found unexpected entry in list: %s" % repr(extra)
-                return "expected %d entries in the list but found %d" % (len(expected), len(actual))
-            elif len(expected) > len(actual):
-                for missing in expected:
-                    if missing not in actual:
-                        return "missing entries from list, such as %s" % repr(missing)
-                return "expected %d entries in the list but found %d" % (len(expected), len(actual))
-            for i in range(len(expected)):
-                expected_dict = expected[i]
-                actual_dict = actual[i]
-                if type(actual_dict) != type(expected_dict):
-                    return "expected a list of %s but found one of type %s at index %d" % (type(expected_dict), type(actual_dict), i)
-                missing_keys = set(expected_dict.keys()) - set(actual_dict.keys())
-                extra_keys = set(actual_dict.keys()) - set(expected_dict.keys())
-                if missing_keys:
-                    key = list(missing_keys)[0]
-                    return "missing %d key value pairs (%s: %s) from dict at index %d of the list" % (len(missing_keys), repr(key), repr(expected_dict[key]), i)
-                elif extra_keys:
-                    key = list(extra_keys)[0]
-                    return "found unexpected key value pair (%s: %s) in dict at index %d of the list" % (repr(key), repr(actual_dict[key]), i)
-                for key in expected_dict:
-                    if type(expected_dict[key]) != type(actual_dict[key]):
-                        return "expected a value of type %s for the key %s in dict at index %d of the list, but found %s" % (type(expected_dict[key]), repr(key), i, type(actual_dict[key]))
-                    if expected_dict[key] != actual_dict[key]:
-                        if type(expected_dict[key]) == list:
-                            extra = set(actual_dict[key]) - set(expected_dict[key])
-                            missing = set(expected_dict[key]) - set(actual_dict[key])
-                            if missing:
-                                return "missing %d entries from value for key %s, such as %s, at index %d of the list" % (len(missing), repr(key), repr(list(missing)[0]), i)
-                            elif extra:
-                                return "found unexpected entry %s in the value for key %s at index %d of the list" % (repr(list(extra)[0]), repr(key), i)
-                            elif len(actual_dict[key]) != len(expected_dict[key]):
-                                return "expected %d entries in the value for key %s but found %d, at index %d of the list" % (len(expected_dict[key]), repr(key), len(actual_dict[key]), i)
-                            elif sorted(expected_dict[key]) == sorted(actual_dict[key]):
-                                return "value of key %s not sorted as expected" % (repr(key))
-                        return "expected value %s for the key %s in dict at index %d of the list, but found %s" % (repr(expected_dict[key]), repr(key), i, repr(actual_dict[key]))
-        except:
-            # Just do a simple comparison
-            if actual != expected:
-                return "expected %s" % repr(expected)
-    else:
+                return "found %s but expected %s" % (repr(actual), repr(expected))
+    except:
         if expected != actual:
-            return "expected %s" % repr(expected)
+            return "expected %s" % (repr(expected))
     return PASS
 
+def simple_compare(expected, actual, complete_msg=True):
+    msg = PASS
+    if type(expected) != type(actual):
+        msg = "expected to find type %s but found type %s" % (type(expected).__name__, type(actual).__name__)
+    elif type(expected) == float:
+        if not math.isclose(actual, expected, rel_tol=REL_TOL, abs_tol=ABS_TOL):
+            msg = "expected %s"  % (repr(expected))
+            if complete_msg:
+                msg = msg + " but found %s" % (repr(actual))
+    else:
+        if expected != actual:
+            msg = "expected %s"  % (repr(expected))
+            if complete_msg:
+                msg = msg + " but found %s" % (repr(actual))
+    return msg
+
+def list_compare_ordered(expected, actual, obj="list"):
+    msg = PASS
+    if type(expected) != type(actual):
+        msg = "expected to find type %s but found type %s" % (type(expected).__name__, type(actual).__name__)
+        return msg
+    for i in range(len(expected)):
+        if i >= len(actual):
+            msg = "expected missing %s in %s" % (repr(expected[i]), obj)
+            break
+        if type(expected[i]) in [int, float, bool, str]:
+            val = simple_compare(expected[i], actual[i])
+        elif type(expected[i]) in [list]:
+            val = list_compare_ordered(expected[i], actual[i], "sub"+obj)
+        elif type(expected[i]) in [dict]:
+            val = dict_compare(expected[i], actual[i])
+        if val != PASS:
+            msg = "at index %d of the %s, " % (i, obj) + val
+            break
+    if len(actual) > len(expected) and msg == PASS:
+        msg = "found unexpected %s in %s" % (repr(actual[len(expected)]), obj)
+    if len(expected) != len(actual):
+        msg = msg + " (found %d entries in %s, but expected %d)" % (len(actual), obj, len(expected))
+
+    if len(expected) > 0 and type(expected[0]) in [int, float, bool, str]:
+        if msg != PASS and list_compare_unordered(expected, actual, obj) == PASS:
+            try:
+                msg = msg + " (list may not be ordered as required)"
+            except:
+                pass
+
+    return msg
+
+def list_compare_helper(larger, smaller):
+    msg = PASS
+    j = 0
+    for i in range(len(larger)):
+        if i == len(smaller):
+            msg = "expected %s" % (repr(larger[i]))
+            break
+        found = False
+        while not found:
+            if j == len(smaller):
+                val = simple_compare(larger[i], smaller[j - 1], False)
+                break
+            val = simple_compare(larger[i], smaller[j], False)
+            j += 1
+            if val == PASS:
+                found = True
+                break
+        if not found:
+            msg = val
+            break
+    return msg
+
+
+def list_compare_unordered(expected, actual, obj="list"):
+    msg = PASS
+    if type(expected) != type(actual):
+        msg = "expected to find type %s but found type %s" % (type(expected).__name__, type(actual).__name__)
+        return msg
+    try:
+        sort_expected = sorted(expected)
+        sort_actual = sorted(actual)
+    except:
+        msg = "unexpected datatype found in list; expect a list of entries of type %s" % (type(expected[0]).__name__)
+        return msg
+
+    if len(expected) > len(actual):
+        msg = "in the %s, missing " % (obj) + list_compare_helper(sort_expected, sort_actual)
+    elif len(expected) < len(actual):
+        msg = "in the %s, found un" % (obj) + list_compare_helper(sort_actual, sort_expected)
+    if len(expected) != len(actual):
+        msg = msg + " (found %d entries in %s, but expected %d)" % (len(actual), obj, len(expected))
+        return msg
+    else:
+        val = list_compare_helper(sort_expected, sort_actual)
+        if val != PASS:
+            msg = "in the %s, missing " % (obj) + val + ", but found un" + list_compare_helper(sort_actual, sort_expected)
+
+    return msg
+
+def dict_compare(expected, actual, obj="dict"):
+    msg = PASS
+    if type(expected) != type(actual):
+        msg = "expected to find type %s but found type %s" % (type(expected).__name__, type(actual).__name__)
+        return msg
+    try:
+        expected_keys = sorted(list(expected.keys()))
+        actual_keys = sorted(list(actual.keys()))
+    except:
+        msg = "unexpected datatype found in keys of dict; expect a dict with keys of type %s" % (type(expected_keys[0]).__name__)
+        return msg
+    val = list_compare_unordered(expected_keys, actual_keys, "dict")
+    if val != PASS:
+        msg = "bad keys in %s: " % (obj) + val
+    if msg == PASS:
+        for key in expected:
+            if type(expected[key]) in [int, float, bool, str]:
+                val = simple_compare(expected[key], actual[key])
+            elif type(expected[key]) in [list]:
+                val = list_compare_ordered(expected[key], actual[key], "value")
+            elif type(expected[key]) in [dict]:
+                val = dict_compare(expected[key], actual[key], "sub"+obj)
+            if val != PASS:
+                msg = "incorrect val for key %s in %s: " % (repr(key), obj) + val
+    return msg
 
 def check_cell(question, cell):
     print('Checking question %d' % question.number)
@@ -505,12 +534,7 @@ def linter_severe_check(nb):
 
 
 def main():
-
-    if (
-        sys.version_info[0] == 3
-        and sys.version_info[1] >= 8
-        and sys.platform.startswith("win")
-        ):
+    if (sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith("win")):
         import asyncio
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -529,14 +553,15 @@ def main():
 
     nb = rerun_notebook(orig_notebook)
 
-    # check for sever linter errors
-    issues = linter_severe_check(nb)
-    if issues:
-        print("\nPlease fix the following, then rerun the tests:")
-        for issue in issues:
-            print(' - ' + issue)
-        print("")
-        sys.exit(1)
+    if LINTER:
+        # check for sever linter errors
+        issues = linter_severe_check(nb)
+        if issues:
+            print("\nPlease fix the following, then rerun the tests:")
+            for issue in issues:
+                print(' - ' + issue)
+            print("")
+            sys.exit(1)
 
     # extract cells that have answers
     answer_cells = {}
