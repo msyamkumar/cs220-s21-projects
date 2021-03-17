@@ -2,7 +2,7 @@
 
 ## Clarifications/Corrections
 
-None yet.
+* Mar 17: updated the test.py
 
 **Find any issues?** Report to us:  
 - Ashwin Maran [amaran@wisc.edu](mailto:amaran@wisc.edu)
