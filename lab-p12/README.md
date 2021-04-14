@@ -9,7 +9,7 @@ In this lab, you'll learn three things:
 <h2> Corrections/Clarifications
 </h2>
 
-None yet.
+* April 14th: update the link for hello.txt.
 
 **Find any issues?** Report to us:
 
@@ -137,7 +137,7 @@ In each cell, replace `# code to measure` with one of the following
 
 ```python
 import requests
-r = requests.get("https://raw.githubusercontent.com/msyamkumar/cs220-s21-projects/tree/main/lab-p12/hello.txt")
+r = requests.get("https://raw.githubusercontent.com/msyamkumar/cs220-s21-projects/main/lab-p12/hello.txt")
 r.raise_for_status()
 data = r.text
 ```
