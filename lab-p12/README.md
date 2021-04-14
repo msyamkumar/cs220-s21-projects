@@ -9,7 +9,7 @@ In this lab, you'll learn three things:
 <h2> Corrections/Clarifications
 </h2>
 
-* April 14th: update the link for hello.txt.
+* April 14th: update the link for hello.txt and hello.html.
 
 **Find any issues?** Report to us:
 
@@ -185,7 +185,7 @@ def download(filename, url):
     return (str(filename) + " created!")
 ```
 
-Now call `download("hello.html", "https://raw.githubusercontent.com/msyamkumar/cs220-s21-projects/tree/main/lab-p12/hello.html")`.
+Now call `download("hello.html", "https://raw.githubusercontent.com/msyamkumar/cs220-s21-projects/main/lab-p12/hello.html")`.
 You should be able to see `hello.html` in your Explorer/Finder.
 
 *TA: Create breakout rooms for 5 minutes and ask students to implement the function by themselves.*
