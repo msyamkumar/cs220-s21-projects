@@ -1,5 +1,7 @@
 # Project 6: Airbnb
 
+# WARNING: Unless you took a time portal to become my student in the past, this is not the correct repository :) Please go to the correct github repository for the current semester. If you are a Spring'21 semester student though, you are in the right place.
+
 ## Corrections/ Clarifications
 
 Mar 3: clarification of q5: please remove the duplicates in your list.
